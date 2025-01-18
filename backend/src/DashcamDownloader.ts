@@ -9,8 +9,6 @@ export class DashcamDownloader {
     RaspiLED.operation = 'DASHCAMTRANSFER'
     switch (await Settings.getDashcamModel()) {
       case 'VIOFOA199MINI':
-        await VIOFO.downloadLockedVideosFromDashcam()
-        break
       default:
         await VIOFO.downloadLockedVideosFromDashcam()
         break

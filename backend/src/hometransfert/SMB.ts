@@ -1,43 +1,29 @@
-import fs from 'fs'
 import SambaClient from 'samba-client'
-import { GlobalState } from '../GlobalState'
-import { Settings } from '../Settings'
+import { ITransfer } from './ITransfer';
 
-export class SMB {
-  public static async smbTransferToHome () {
-    const settings = await Settings.getSMBSettings()
+export class SMB implements ITransfer {
+  private settings:any
+  private client:SambaClient
 
-    console.log('Connecting to smb', settings.host, settings.storagePath)
-    const client = new SambaClient({
+  constructor(settings:any) {
+    this.settings = settings
+    this.client = new SambaClient({
       address: `\\\\${settings.host}\\home`,
       username: settings.username,
       password: settings.password
     })
+  }
 
-    if (!await client.fileExists('dashcam-transfer')) {
-      await client.mkdir('dashcam-transfer')
-      await client.mkdir('dashcam-transfer\\locked')
-    }
-    // const client = new SMB2({
-    //     share: '\\\\'+ settings.host +'\\home',
-    //     domain: '',
-    //     username: settings.username,
-    //     password: settings.password,
-    // });
+  public async transfer(file:string, dir:string) {
+    if (!this.settings.enabled) return
 
-    // let filelist = await client.readdir("");
-
-    const lockedFilesDirectory = await Settings.getDownloadDirectory() + '/locked'
-    const lockedFiles = fs.readdirSync(lockedFilesDirectory)
-
-    for (const file of lockedFiles) {
-      console.log('Uploading file to smb', file)
-      await client.sendFile(lockedFilesDirectory + '/' + file, 'dashcam-transfer\\locked\\' + file)
-      console.log('File uploaded, deleting locally')
-      fs.unlinkSync(lockedFilesDirectory + '/' + file)
+    if (!await this.client.fileExists('dashcam-transfer')) {
+      await this.client.mkdir('dashcam-transfer')
+      await this.client.mkdir('dashcam-transfer\\locked')
     }
 
-    GlobalState.homeTransferDone = true
-    console.log('All files uploaded')
+    console.log('Uploading file to smb', file)
+    await this.client.sendFile(`${dir}/${file}`, `dashcam-transfer\\locked\\${file}`)
+    console.log('Upload complete to smb', file)
   }
 }

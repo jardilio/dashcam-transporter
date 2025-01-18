@@ -39,4 +39,12 @@ export class Settings {
       storagePath: properties.get('smb.storagepath') as string
     }
   }
+
+  public static async getGooglePhotosSettings () {
+    return {
+      enabled: properties.get('googlephotos.enabled') === 'true',
+      token: properties.get('googlephotos.token') as string,
+      albumId: properties.get('googlephotos.albumId') as string
+    }
+  }
 }
