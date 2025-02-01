@@ -19,7 +19,7 @@
     "scripts": "dist/**/*.js"
   },
   "devDependencies": {
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.19.50",
     "@types/node-wifi": "^2.0.0",
     "@types/properties-reader": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "^5.55.0",

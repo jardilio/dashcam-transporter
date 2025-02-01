@@ -32,7 +32,7 @@ export class Settings {
 
   public static async getSMBSettings () {
     return {
-      enabled: properties.get('smb.enabled') === 'true',
+      enabled: properties.get('smb.enabled') as boolean,
       host: properties.get('smb.host') as string,
       username: properties.get('smb.username') as string,
       password: properties.get('smb.password') as string,
@@ -42,9 +42,12 @@ export class Settings {
 
   public static async getGooglePhotosSettings () {
     return {
-      enabled: properties.get('googlephotos.enabled') === 'true',
-      token: properties.get('googlephotos.token') as string,
-      albumId: properties.get('googlephotos.albumId') as string
+      enabled: properties.get('googlephotos.enabled') as boolean,
+      refreshToken: properties.get('googlephotos.refreshToken') as string,
+      albumId: properties.get('googlephotos.albumId') as string,
+      albumName: properties.get('googlephotos.albumName') as string,
+      clientId: properties.get('googlephotos.clientId') as string,
+      clientSecret: properties.get('googlephotos.clientSecret') as string
     }
   }
 }

@@ -28,7 +28,7 @@ export class HomeTransfer {
     console.log('All files uploaded')
   }
 
-  private static async processTransfer(transferer:ITransfer, file:String, dir:String) {
+  private static async processTransfer(transferer:ITransfer, file:string, dir:string) {
     return transferer.transfer(file, dir)
       .then(() => fs.unlinkSync(`lockedFilesDirectory/${file}`))
       .catch(e => console.log('Error transfering file', file, e))
