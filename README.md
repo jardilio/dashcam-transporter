@@ -21,7 +21,7 @@ Application running on a raspberry pi (or other debian based platforms), to tran
 ## Automated script
 - Setup raspbian lite (or other debian based os, this is not tested though) and execute
 
-`curl -o- https://raw.githubusercontent.com/steve192/dashcam-transporter/main/install.sh | bash`
+`curl -o- https://raw.githubusercontent.com/jardilio/dashcam-transporter/main/install.sh | bash`
 ## Manual
 - Setup raspbian lite (or other debian based os, this is not tested though)
     - Ensure npm is installed if using something different than raspberry pi (`sudo apt install node npm`)
