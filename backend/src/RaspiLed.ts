@@ -11,8 +11,8 @@ export class RaspiLED {
   private static isPiCached: undefined | boolean = undefined
 
   public static isRaspberryPi () {
-    if (this.isPiCached !== undefined) {
-      return this.isPiCached
+    if (RaspiLED.isPiCached !== undefined) {
+      return RaspiLED.isPiCached
     }
 
     const piModels = [
@@ -42,14 +42,14 @@ export class RaspiLED {
       }
     })
 
-    this.isPiCached = isPi
-    return this.isPiCached
+    RaspiLED.isPiCached = isPi
+    return RaspiLED.isPiCached
   }
 
   public static initialize () {
-    if (this.isRaspberryPi()) {
-      fs.writeFileSync('/sys/class/leds/led0/trigger', 'none')
-      fs.writeFileSync('/sys/class/leds/led1/trigger', 'none')
+    if (RaspiLED.isRaspberryPi()) {
+      // fs.writeFileSync('/sys/class/leds/led0/trigger', 'none')
+      // fs.writeFileSync('/sys/class/leds/led1/trigger', 'none')
     }
     console.log('LEDs setup')
     RaspiLED.updateStatus()
@@ -62,9 +62,9 @@ export class RaspiLED {
       RaspiLED.ledStatus = true
     }
 
-    if (this.isRaspberryPi()) {
-      fs.writeFileSync('/sys/class/leds/led0/brightness', RaspiLED.ledStatus ? '1' : '0')
-      fs.writeFileSync('/sys/class/leds/led1/brightness', RaspiLED.ledStatus ? '1' : '0')
+    if (RaspiLED.isRaspberryPi()) {
+      // fs.writeFileSync('/sys/class/leds/led0/brightness', RaspiLED.ledStatus ? '1' : '0')
+      // fs.writeFileSync('/sys/class/leds/led1/brightness', RaspiLED.ledStatus ? '1' : '0')
     }
     setTimeout(RaspiLED.updateStatus, 500)
   }
